@@ -1,23 +1,13 @@
 {
   "todos": [
     {
-      "id": "f823b191-7799-438d-8d78-fcb1e468fc78",
-      "desc": "blablabla",
-      "completed": true
-    },
-    {
-      "id": "6f53f8e0-c690-ddc0-e06f-7a290548062d",
-      "desc": "what",
+      "id": "4b4a984e-632f-30e2-af54-dbf1d10739ca",
+      "desc": "Test1",
       "completed": false
     },
     {
-      "id": "f823b191-7799-438d-8d78-fcb1e468fc77",
-      "desc": "Getting up",
-      "completed": false
-    },
-    {
-      "id": "c316a3bf-b053-71f9-18a3-0073c7ee3b76",
-      "desc": "Go to school",
+      "id": "b9dc1bd7-9fd5-4e03-32bb-63a94728b444",
+      "desc": "Test2",
       "completed": false
     }
   ]

@@ -7,7 +7,7 @@ import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './todo-header.component.html',
   styleUrls: ['./todo-header.component.css']
 })
-export class TodoHeaderComponent implements OnInit {
+export class TodoHeaderComponent {
   
   inputValue: string = '';
   @Input() placeholder: string = 'What needs to be done?';
@@ -23,9 +23,6 @@ export class TodoHeaderComponent implements OnInit {
         distinctUntilChanged()
       );
     event$.subscribe(input => this.textChanges.emit(input));
-  }
-
-  ngOnInit() {
   }
 
   enterUp() {

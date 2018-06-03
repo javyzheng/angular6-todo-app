@@ -31,27 +31,29 @@ export class TodoComponent implements OnInit {
         this.desc = '';
       });
   }
-  toggleTodo(todo: Todo) {
+  toggleTodo(todo: Todo): Promise<void> {
     const i = this.todos.indexOf(todo);
-    this.service
+    return this.service
       .toggleTodo(todo)
       .then(t => {
         this.todos = [
           ...this.todos.slice(0,i),
           t,
           ...this.todos.slice(i+1)
-          ];
+        ];
+        return null;
       });
   }
-  removeTodo(todo: Todo) {
+  removeTodo(todo: Todo): Promise<void> {
     const i = this.todos.indexOf(todo);
-    this.service
+    return this.service
       .deleteTodoById(todo.id)
       .then(()=> {
         this.todos = [
           ...this.todos.slice(0,i),
           ...this.todos.slice(i+1)
         ];
+        return null;
       });
   }
 
@@ -64,4 +66,16 @@ export class TodoComponent implements OnInit {
   onTextChanges(value) {
     this.desc = value;
   }
+
+  toggleAll() {
+    Promise.all(this.todos.map(todo => this.toggleTodo(todo)));
+  }
+
+  clearCompleted() {
+    const completed_todos = this.todos.filter(todo => todo.completed === true);
+    const active_todos = this.todos.filter(todo => todo.completed === false);
+    Promise.all(completed_todos.map(todo => this.service.deleteTodoById(todo.id)))
+      .then(() => this.todos = [...active_todos]);
+  }
+
 }
