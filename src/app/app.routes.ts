@@ -13,7 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'todo',
-    redirectTo: '/todo/ALL'
+    redirectTo: 'todo/ALL'
   },
 ];
 export const routing = RouterModule.forRoot(routes);

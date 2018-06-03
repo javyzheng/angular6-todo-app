@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo.service';
 import { Todo } from './todo.model';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   templateUrl: './todo.component.html',
@@ -10,9 +11,17 @@ export class TodoComponent implements OnInit {
   todos: Todo[] = [];
   desc = '';
 
-  constructor(private service: TodoService) {}
+  constructor(
+    private service: TodoService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+ 
   ngOnInit() {
-    this.getTodos();
+    this.route.params.forEach((params: Params) => {
+      let filter = params['filter'];
+      this.filterTodos(filter);
+    });
   }
   addTodo(){
     this.service
@@ -45,9 +54,10 @@ export class TodoComponent implements OnInit {
         ];
       });
   }
-  getTodos(): void {
+
+  filterTodos(filter: string): void {
     this.service
-      .getTodos()
+      .filterTodos(filter)
       .then(todos => this.todos = [...todos]);
   }
 
