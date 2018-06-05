@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 
-import { Todo } from './todo.model';
 import { TodoModule } from './todo.module';
+import { Todo } from '../domain/entities';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,17 @@ export class TodoService {
   // private api_url = 'api/todos';
   private api_url = 'http://localhost:3000/todos';
   private headers = new Headers({'Content-Type': 'application/json'});
-  
+
   constructor(private http: Http) { }
   
   // POST /todos
-  addTodo(desc:string): Promise<Todo> {
+  addTodo(desc: string): Promise<Todo> {
+    const userId: number = +localStorage.getItem('userId');
     let todo = {
       id: UUID.UUID(),
       desc: desc,
-      completed: false
+      completed: false,
+      userId
     };
     return this.http
             .post(this.api_url, JSON.stringify(todo), {headers: this.headers})
@@ -29,6 +31,7 @@ export class TodoService {
             .then(res => res.json() as Todo)
             .catch(this.handleError);
   }
+  
   // PUT /todos/:id
   toggleTodo(todo: Todo): Promise<Todo> {
     const url = `${this.api_url}/${todo.id}`;
@@ -49,9 +52,12 @@ export class TodoService {
             .then(() => null)
             .catch(this.handleError);
   }
+ 
   // GET /todos
   getTodos(): Promise<Todo[]>{
-    return this.http.get(this.api_url)
+    const userId = +localStorage.getItem('userId');
+    const url = `${this.api_url}/?userId=${userId}`;
+    return this.http.get(url)
               .toPromise()
               .then(res => res.json() as Todo[])
               .catch(this.handleError);
@@ -59,14 +65,16 @@ export class TodoService {
 
   // GET /todos?completed=true/false
   filterTodos(filter: string): Promise<Todo[]> {
+    const userId: number = +localStorage.getItem('userId');
+    const url = `${this.api_url}/?userId=${userId}`;
     switch(filter) {
       case 'ACTIVE': return this.http
-        .get(`${this.api_url}?completed=false`)
+        .get(`${url}&completed=false`)
         .toPromise()
         .then(res => res.json() as Todo[])
         .catch(this.handleError);
       case 'COMPLETED': return this.http
-        .get(`${this.api_url}?completed=true`)
+        .get(`${url}&completed=true`)
         .toPromise()
         .then(res => res.json() as Todo[])
         .catch(this.handleError);

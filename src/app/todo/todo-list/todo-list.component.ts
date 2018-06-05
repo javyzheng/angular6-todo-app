@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Todo } from '../todo.model';
+import { Todo } from '../../domain/entities';
 
 @Component({
   selector: 'app-todo-list',
@@ -23,7 +23,7 @@ export class TodoListComponent {
   @Output() onToggleTodo = new EventEmitter<Todo>();
   @Output() onToggleAll = new EventEmitter<boolean>();
 
-  onRemoveTriggerd(todo: Todo) {
+  onRemoveTriggered(todo: Todo) {
     this.onRemoveTodo.emit(todo);
   }
 
