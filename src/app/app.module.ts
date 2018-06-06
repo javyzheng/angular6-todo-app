@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 import { TodoModule } from './todo/todo.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { TodoModule } from './todo/todo.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing,
-    TodoModule
+    AppRoutingModule,
+    TodoModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

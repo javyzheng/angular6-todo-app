@@ -7,7 +7,7 @@ import { TodoFooterComponent } from "./todo-footer/todo-footer.component";
 import { TodoHeaderComponent } from "./todo-header/todo-header.component";
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { routing } from "./todo.routes";
+import { TodoRoutingModule } from "./todo-routing.module";
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { routing } from "./todo.routes";
         CommonModule,
         FormsModule,
         HttpModule,
-        routing
+        TodoRoutingModule
     ],
     declarations: [
         TodoComponent,
